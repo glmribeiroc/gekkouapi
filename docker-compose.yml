@@ -1,0 +1,17 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: gekkou
+      POSTGRES_PASSWORD: gekkou
+      POSTGRES_DB: gekkoudb
+    volumes:
+      - pgdata:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: always
+
+volumes:
+  pgdata:
+    driver: local
