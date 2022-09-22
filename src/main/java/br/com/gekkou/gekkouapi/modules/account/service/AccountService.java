@@ -2,11 +2,13 @@ package br.com.gekkou.gekkouapi.modules.account.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -48,7 +50,10 @@ public class AccountService implements UserDetailsService {
 
     public Account createAccount(Account account) {
         log.info("Creating new account {} to the database", account.getName());
+        Role role = roleRepository.findByName("ROLE_USER");
+        account.getRoles().add(role);
         account.setPassword(passwordEncoder.encode(account.getPassword()));
+        account.setCreated_at(new Date());
         return accountRepository.save(account);
     }
 
@@ -57,16 +62,16 @@ public class AccountService implements UserDetailsService {
         return roleRepository.save(role);
     }
 
-    public void addRoleToUser(String email, String roleName) {
-        log.info("Adding role {} to user {}", roleName, email);
-        Account account = accountRepository.findByEmail(email);
+    public void addRoleToUser(String username, String roleName) {
+        log.info("Adding role {} to user {}", roleName, username);
+        Account account = accountRepository.findByEmail(username);
         Role role = roleRepository.findByName(roleName);
         account.getRoles().add(role);
     }
 
-    public Account getAccount(String email) {
-        log.info("Fetching user {}", email);
-        return accountRepository.findByEmail(email);
+    public Account getAccount(String username) {
+        log.info("Fetching user {}", username);
+        return accountRepository.findByEmail(username);
     }
 
     public List<Account> getAccounts() {
