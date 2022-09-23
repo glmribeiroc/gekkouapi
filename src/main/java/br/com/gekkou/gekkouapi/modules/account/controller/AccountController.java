@@ -27,7 +27,8 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import br.com.gekkou.gekkouapi.modules.account.controller.request.AddRoleToUserRequest;
+
+import br.com.gekkou.gekkouapi.modules.account.controller.dto.AddRoleToUserRequest;
 import br.com.gekkou.gekkouapi.modules.account.entity.Account;
 import br.com.gekkou.gekkouapi.modules.account.entity.Role;
 import br.com.gekkou.gekkouapi.modules.account.service.AccountService;
